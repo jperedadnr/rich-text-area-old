@@ -184,9 +184,9 @@ class RichTextAreaSkin extends SkinBase<RichTextArea> {
     private int dragStart = -1;
 
     private void mousePressedListener(MouseEvent e) {
-        HitInfo hitInfo = textFlow.hitTest(new Point2D( e.getX(), e.getY()));
-        if (hitInfo.getCharIndex() >= 0) {
-            viewModel.setCaretPosition(hitInfo.getCharIndex());
+        HitInfo hitInfo = textFlow.hitTest(new Point2D(e.getX(), e.getY()));
+        if (hitInfo.getInsertionIndex() >= 0) {
+            viewModel.setCaretPosition(hitInfo.getInsertionIndex());
             dragStart = viewModel.getCaretPosition();
         }
         viewModel.clearSelection();
@@ -195,11 +195,11 @@ class RichTextAreaSkin extends SkinBase<RichTextArea> {
     }
 
     private void mouseDraggedListener(MouseEvent e) {
-        HitInfo hitInfo = textFlow.hitTest(new Point2D( e.getX(), e.getY()));
-        if (hitInfo.getCharIndex() >= 0) {
-            int dragEnd = hitInfo.getCharIndex();
+        HitInfo hitInfo = textFlow.hitTest(new Point2D(e.getX(), e.getY()));
+        if (hitInfo.getInsertionIndex() >= 0) {
+            int dragEnd = hitInfo.getInsertionIndex();
             viewModel.setSelection( new Selection(dragStart, dragEnd));
-            viewModel.setCaretPosition(hitInfo.getCharIndex());
+            viewModel.setCaretPosition(hitInfo.getInsertionIndex());
         }
         e.consume();
     }
